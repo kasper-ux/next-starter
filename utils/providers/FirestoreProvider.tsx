@@ -3,7 +3,6 @@ import {
 	DocumentData,
 	QueryConstraint,
 	QueryDocumentSnapshot,
-	QueryFieldFilterConstraint,
 	QuerySnapshot,
 	addDoc,
 	collection,
@@ -12,7 +11,6 @@ import {
 	getFirestore,
 	query,
 	updateDoc,
-	where,
 	writeBatch
 } from "firebase/firestore";
 import firebase from '@utils/config/firebase';
@@ -30,7 +28,6 @@ interface FirestoreUpdate {
 	[key: string]: string
 }
 
-const firestore = getFirestore(firebase);
 const FirestoreContext: Context<ContextProps> = createContext<ContextProps>({} as ContextProps)
 
 interface ContextProps {
@@ -64,6 +61,7 @@ export default function FirestoreProvider({
 }: {
 	children: any
 }) {
+	const firestore = getFirestore(firebase);
 
 	const getAll = async (
 		source: FirestoreSource,

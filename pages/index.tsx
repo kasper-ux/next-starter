@@ -1,4 +1,4 @@
-import BasePage from '@ui/pages/BasePage'
+import BasePage from '@ui/page/BasePage'
 
 export default function Home() {
 	return (

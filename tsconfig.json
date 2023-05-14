@@ -22,6 +22,9 @@
 			"@ui/*": [
 				"./ui/*"
 			],
+			"@features/*": [
+				"./features/*"
+			],
 			"@shared/*": [
 				"./shared/*"
 			],

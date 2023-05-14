@@ -15,7 +15,6 @@ interface ContextProps {
 	signOut: () => Promise<void>,
 }
 
-const authentication = getAuth(firebase);
 const AuthenticationContext: Context<ContextProps> = createContext<ContextProps>({} as ContextProps)
 
 export default function AuthenticationProvider({
@@ -24,6 +23,7 @@ export default function AuthenticationProvider({
 	children: any
 }) {
 	const [auth, setAuth] = useState<UserCredential>();
+	const authentication = getAuth(firebase);
 
 	const _recaptchaVerifier = (
 		buttonId: string,
