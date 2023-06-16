@@ -25,11 +25,14 @@
 			"@features/*": [
 				"./features/*"
 			],
-			"@shared/*": [
-				"./shared/*"
+			"@constants/*": [
+				"./constants/*"
 			],
 			"@utils/*": [
 				"./utils/*"
+			],
+			"@config/*": [
+				"./config/*"
 			]
 		}
 	},

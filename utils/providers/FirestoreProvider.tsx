@@ -1,4 +1,4 @@
-import { Context, createContext } from 'react';
+import { Context, createContext, useContext } from 'react';
 import {
 	DocumentData,
 	QueryConstraint,
@@ -13,8 +13,8 @@ import {
 	updateDoc,
 	writeBatch
 } from "firebase/firestore";
-import firebase from '@utils/config/firebase';
-import FirestoreSource from '@utils/config/firestore';
+import firebase from '../../config/firebase';
+import FirestoreSource from '../../config/firestore';
 
 interface FirestoreOptions {
 	parser: (data: DocumentData) => any
@@ -129,3 +129,6 @@ export default function FirestoreProvider({
 		</FirestoreContext.Provider>
 	)
 }
+
+export const useFirestore = () =>
+	useContext(FirestoreContext);

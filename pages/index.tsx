@@ -1,4 +1,4 @@
-import BasePage from '@ui/page/BasePage'
+import BasePage from '@ui/pages/BasePage'
 
 export default function Home() {
 	return (
@@ -8,4 +8,4 @@ export default function Home() {
 	)
 }
 
-Home.title = "Hello World"
+Home.title = "Home"

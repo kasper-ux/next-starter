@@ -1,5 +1,5 @@
 enum FirestoreSource {
-	example = "example",
+	collection = "collection",
 }
 
 export default FirestoreSource;

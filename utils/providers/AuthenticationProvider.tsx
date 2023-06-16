@@ -1,8 +1,9 @@
-import { Context, createContext, useState } from 'react';
-import { UserCredential, getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, signInWithPhoneNumber, RecaptchaVerifier, ConfirmationResult } from "firebase/auth";
-import firebase from '@utils/config/firebase';
+import { Context, createContext, useContext, useState } from 'react';
+import { UserCredential, getAuth, signInWithEmailAndPassword, signOut as firebaseSignOut, signInWithPhoneNumber, RecaptchaVerifier, ConfirmationResult, User } from "firebase/auth";
+import firebase from '../../config/firebase';
 
 interface ContextProps {
+	user?: User,
 	signInWithEmail: (
 		email: string,
 		password: string
@@ -22,9 +23,11 @@ export default function AuthenticationProvider({
 }: {
 	children: any
 }) {
-	const [auth, setAuth] = useState<UserCredential>();
+	const [user, setUser] = useState<User>();
 	const authentication = getAuth(firebase);
 
+	// ReCaptcha Verifier
+	// https://firebase.google.com/docs/auth/web/phone-auth#use-invisible-recaptcha
 	const _recaptchaVerifier = (
 		buttonId: string,
 		onSubmit: (response: any) => void
@@ -40,7 +43,7 @@ export default function AuthenticationProvider({
 		authentication,
 		email,
 		password
-	).then(setAuth)
+	).then((uc: UserCredential) => setUser(uc.user))
 
 	const signInWithPhone = async (
 		phoneNumber: string,
@@ -58,6 +61,7 @@ export default function AuthenticationProvider({
 	return (
 		<AuthenticationContext.Provider
 			value={{
+				user,
 				signInWithEmail,
 				signInWithPhone,
 				signOut
@@ -67,20 +71,5 @@ export default function AuthenticationProvider({
 	)
 }
 
-/*
-	Use invisible reCAPTCHA
-	
-	To use an invisible reCAPTCHA, create a RecaptchaVerifier object 
-	with the size parameter set to invisible, specifying the ID of 
-	the button that submits your sign-in form. For example:
-	
-	new RecaptchaVerifier('sign-in-button', {
-		'size': 'invisible',
-		'callback': (response) => {
-			// reCAPTCHA solved, allow signInWithPhoneNumber.
-			onSignInSubmit();
-		}
-	}, auth);
-
-	https://firebase.google.com/docs/auth/web/phone-auth#use-invisible-recaptcha
-*/
+export const useAuthentication = () =>
+	useContext(AuthenticationContext);
